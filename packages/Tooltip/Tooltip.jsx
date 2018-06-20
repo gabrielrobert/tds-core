@@ -80,43 +80,45 @@ class Tooltip extends React.Component {
 
     return (
       <div {...safeRest(rest)} className={iconWrapperStyles.fixLineHeight}>
-        <StandaloneIcon
-          symbol="questionMarkCircle"
-          a11yText={getTriggerA11yText(connectedFieldLabel)}
-          onClick={this.toggleBubble}
-          id={triggerId}
-          aria-controls={bubbleId}
-          aria-haspopup="true"
-          aria-expanded={this.state.open ? 'true' : 'false'}
-        />
-        <Responsive
-          defaultMatches
-          maxWidth="sm"
-          render={() => (
-            <Bubble id={bubbleId} direction="left" width="full" open={this.state.open}>
-              {children}
-            </Bubble>
-          )}
-        />
-        <Responsive
-          defaultMatches={false}
-          minWidth="sm"
-          maxWidth="md"
-          render={() => (
-            <Bubble id={bubbleId} direction="left" width="half" open={this.state.open}>
-              {children}
-            </Bubble>
-          )}
-        />
-        <Responsive
-          defaultMatches={false}
-          minWidth="md"
-          render={() => (
-            <Bubble id={bubbleId} direction={direction} width="quarter" open={this.state.open}>
-              {children}
-            </Bubble>
-          )}
-        />
+        <div style={{ position: 'relative' }}>
+          <Responsive
+            defaultMatches
+            maxWidth="sm"
+            render={() => (
+              <Bubble id={bubbleId} direction="left" width="full" open={this.state.open}>
+                {children}
+              </Bubble>
+            )}
+          />
+          <Responsive
+            defaultMatches={false}
+            minWidth="sm"
+            maxWidth="md"
+            render={() => (
+              <Bubble id={bubbleId} direction="left" width="half" open={this.state.open}>
+                {children}
+              </Bubble>
+            )}
+          />
+          <Responsive
+            defaultMatches={false}
+            minWidth="md"
+            render={() => (
+              <Bubble id={bubbleId} direction={direction} width="quarter" open={this.state.open}>
+                {children}
+              </Bubble>
+            )}
+          />
+          <StandaloneIcon
+            symbol="questionMarkCircle"
+            a11yText={getTriggerA11yText(connectedFieldLabel)}
+            onClick={this.toggleBubble}
+            id={triggerId}
+            aria-controls={bubbleId}
+            aria-haspopup="true"
+            aria-expanded={this.state.open ? 'true' : 'false'}
+          />
+        </div>
       </div>
     )
   }

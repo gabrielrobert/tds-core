@@ -39,7 +39,7 @@ $bubble-triangle-position: $bubble-triangle-width + 5px;
 .left {
   composes: bubble;
 
-  right: $bubble-offset * -1;
+  right: calc(0px - #{$bubble-offset});
 
   &::before {
     right: $bubble-triangle-position;
@@ -49,7 +49,9 @@ $bubble-triangle-position: $bubble-triangle-width + 5px;
 .right {
   composes: bubble;
 
-  left: calc(100% - #{$bubble-trigger-size} - #{$bubble-offset});
+  // right: -$bubble-offset;
+
+  left: calc(0px - #{$bubble-offset});
 
   &::before {
     left: $bubble-triangle-position;
@@ -57,13 +59,13 @@ $bubble-triangle-position: $bubble-triangle-width + 5px;
 }
 
 .full {
-  width: 100%;
+  width: 85vw;
 }
 
 .half {
-  width: 50%;
+  width: 50vw;
 }
 
 .quarter {
-  width: 25%;
+  width: 25vw;
 }
