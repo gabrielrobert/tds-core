@@ -7,13 +7,13 @@ describe('PriceLockup', () => {
   const doShallow = (props = {}) => shallow(<PriceLockup {...props} />)
   const doMount = (props = {}) => mount(<PriceLockup {...props} />)
   it('renders', () => {
-    const priceLockup = doShallow()
+    const priceLockup = doShallow({ price: '25' })
 
     expect(priceLockup).toMatchSnapshot()
   })
 
   it('passes additional attributes to the element', () => {
-    const priceLockup = doShallow({ id: 'the-id', 'data-some-attr': 'some value' })
+    const priceLockup = doShallow({ id: 'the-id', 'data-some-attr': 'some value', price: '25' })
 
     expect(priceLockup).toHaveProp('id', 'the-id')
     expect(priceLockup).toHaveProp('data-some-attr', 'some value')
@@ -23,6 +23,7 @@ describe('PriceLockup', () => {
     const priceLockup = doShallow({
       className: 'my-custom-class',
       style: { color: 'hotpink' },
+      price: '25',
     })
 
     expect(priceLockup).not.toHaveProp('className', 'my-custom-class')
@@ -40,17 +41,38 @@ describe('PriceLockup', () => {
   })
 
   it('will render the DollarSign first and DollarValue second when signDirection is left', () => {
-    const priceLockup = doMount({ size: 'small', signDirection: 'left', price: '25' })
+    const priceLockup = doMount({
+      size: 'small',
+      signDirection: 'left',
+      price: '25',
+      rateText: '',
+      topText: '',
+      bottomText: '',
+    })
     expect(priceLockup.text()).toEqual('$25')
   })
 
   it('will not render the DollarSign but DollarValue will be present', () => {
-    const priceLockup = doMount({ size: 'small', signDirection: undefined, price: '25' })
+    const priceLockup = doMount({
+      size: 'small',
+      signDirection: undefined,
+      price: '25',
+      rateText: '',
+      topText: '',
+      bottomText: '',
+    })
     expect(priceLockup.text()).toEqual('25')
   })
 
   it('will render the DollarSign second and DollarValue first when signDirection is right', () => {
-    const priceLockup = doMount({ size: 'small', signDirection: 'right', price: '25' })
+    const priceLockup = doMount({
+      size: 'small',
+      signDirection: 'right',
+      price: '25',
+      rateText: '',
+      topText: '',
+      bottomText: '',
+    })
     expect(priceLockup.text()).toEqual('25$')
   })
 

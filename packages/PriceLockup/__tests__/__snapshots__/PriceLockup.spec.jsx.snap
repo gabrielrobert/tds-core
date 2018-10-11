@@ -1,6 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-<<<<<<< HEAD
 exports[`PriceLockup dollarSign size is H1, dollarValue will be DisplayH1, rateText is large, topText is large, bottomText is absent, when size Prop is large 1`] = `
 <PriceLockup
   bottomText="great"
@@ -270,8 +269,6 @@ exports[`PriceLockup dollarSign size is medium, dollarValue will be H2, rateText
 </PriceLockup>
 `;
 
-=======
->>>>>>> 5ef85a6b66cada61bd44e992a36cea85e677d63e
 exports[`PriceLockup renders 1`] = `
 <div>
   <TopText />
