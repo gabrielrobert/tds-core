@@ -1,5 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+<<<<<<< HEAD
 exports[`PriceLockup BottomText Component will not render on size="large" and bottomText="" 1`] = `
 <PriceLockup
   bottomText=""
@@ -791,10 +792,16 @@ exports[`PriceLockup renders with default props 1`] = `
   inline={false}
   tag="div"
 >
+=======
+exports[`PriceLockup renders 1`] = `
+<div>
+  <TopText />
+>>>>>>> 570295585f3443a6d2a10ec50f32ef2c3350160d
   <div
     className="priceWrapper"
   >
     <PriceValueSign />
+<<<<<<< HEAD
   </div>
   <Hairline />
 </Box>
@@ -1245,4 +1252,10 @@ exports[`PriceLockup topText prop is undefined 1`] = `
     </div>
   </Box>
 </PriceLockup>
+=======
+    <RateText />
+  </div>
+  <Hairline />
+</div>
+>>>>>>> 570295585f3443a6d2a10ec50f32ef2c3350160d
 `;
