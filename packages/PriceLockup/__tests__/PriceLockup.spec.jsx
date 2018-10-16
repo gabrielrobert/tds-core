@@ -3,20 +3,18 @@ import { shallow, mount } from 'enzyme'
 
 import PriceLockup from '../PriceLockup'
 
+const defaultProps = {
+  signDirection: 'left',
+  price: '25',
+}
+
 describe('PriceLockup', () => {
-  const doShallow = (props = {}) => shallow(<PriceLockup {...props} />)
-  const doMount = (props = {}) => mount(<PriceLockup {...props} />)
-  it('renders', () => {
-    const priceLockup = doShallow({ price: '25' })
+  const doShallow = (props = {}) => shallow(<PriceLockup {...defaultProps} {...props} />)
+  const doMount = (props = {}) => mount(<PriceLockup {...defaultProps} {...props} />)
 
+  it('renders with default props', () => {
+    const priceLockup = doShallow()
     expect(priceLockup).toMatchSnapshot()
-  })
-
-  it('passes additional attributes to the element', () => {
-    const priceLockup = doShallow({ id: 'the-id', 'data-some-attr': 'some value', price: '25' })
-
-    expect(priceLockup).toHaveProp('id', 'the-id')
-    expect(priceLockup).toHaveProp('data-some-attr', 'some value')
   })
 
   it('does not allow custom CSS', () => {
@@ -25,90 +23,122 @@ describe('PriceLockup', () => {
       style: { color: 'hotpink' },
       price: '25',
     })
-
     expect(priceLockup).not.toHaveProp('className', 'my-custom-class')
     expect(priceLockup).not.toHaveProp('style')
   })
 
-  it('will render BottomText when size prop is medium', () => {
-    const priceLockup = doShallow({ size: 'medium', price: '25' })
-    expect(priceLockup.text()).toContain('<BottomText />')
-  })
-
-  it('will not render BottomText when size prop is not medium', () => {
-    const priceLockup = doShallow({ size: 'large', price: '25' })
-    expect(priceLockup.text()).not.toContain('<BottomText />')
-  })
-
-  it('will render the DollarSign first and DollarValue second when signDirection is left', () => {
-    const priceLockup = doMount({
-      size: 'small',
-      signDirection: 'left',
-      price: '25',
-      rateText: '',
-      topText: '',
-      bottomText: '',
+  describe('size prop', () => {
+    it('is small', () => {
+      const wrapper = doMount({ size: 'small' })
+      expect(wrapper).toMatchSnapshot()
     })
-    expect(priceLockup.text()).toEqual('$25')
+    it('is medium', () => {
+      const wrapper = doMount({ size: 'medium' })
+      expect(wrapper).toMatchSnapshot()
+    })
+    it('is large', () => {
+      const wrapper = doMount({ size: 'large' })
+      expect(wrapper).toMatchSnapshot()
+    })
+    it('is undefined', () => {
+      const wrapper = doMount({ size: undefined })
+      expect(wrapper).toMatchSnapshot()
+    })
   })
 
-  it('will not render the DollarSign but DollarValue will be present', () => {
-    const priceLockup = doMount({
-      size: 'small',
-      signDirection: undefined,
-      price: '25',
-      rateText: '',
-      topText: '',
-      bottomText: '',
+  describe('signDirection prop', () => {
+    it('is left', () => {
+      const wrapper = doMount({ signDirection: 'left' })
+      expect(wrapper).toMatchSnapshot()
     })
-    expect(priceLockup.text()).toEqual('25')
+    it('is right', () => {
+      const wrapper = doMount({ signDirection: 'right' })
+      expect(wrapper).toMatchSnapshot()
+    })
+    it('is undefined', () => {
+      const wrapper = doMount({ signDirection: undefined })
+      expect(wrapper).toMatchSnapshot()
+    })
   })
 
-  it('will render the DollarSign second and DollarValue first when signDirection is right', () => {
-    const priceLockup = doMount({
-      size: 'small',
-      signDirection: 'right',
-      price: '25',
-      rateText: '',
-      topText: '',
-      bottomText: '',
+  describe('topText prop', () => {
+    it('has a string', () => {
+      const wrapper = doMount({ topText: 'test top' })
+      expect(wrapper).toMatchSnapshot()
     })
-    expect(priceLockup.text()).toEqual('25$')
+    it('is undefined', () => {
+      const wrapper = doMount({ topText: undefined })
+      expect(wrapper).toMatchSnapshot()
+    })
   })
 
-  it('dollarSign size is medium, dollarValue will be H2, rateText is medium, topText is small, bottomText is absent, when size Prop is small', () => {
-    const priceLockup = doMount({
-      size: 'small',
-      signDirection: 'left',
-      price: '25',
-      rateText: '/month',
-      topText: 'buy',
-      bottomText: 'great',
+  describe('bottomText prop', () => {
+    it('has a string', () => {
+      const wrapper = doMount({ bottomText: 'test bottom' })
+      expect(wrapper).toMatchSnapshot()
     })
-    expect(priceLockup).toMatchSnapshot()
+    it('is undefined', () => {
+      const wrapper = doMount({ bottomText: undefined })
+      expect(wrapper).toMatchSnapshot()
+    })
   })
 
-  it('dollarSign size is large, dollarValue will be H1, rateText is medium, topText is small, with HairlineDivider bottomText is medium, when size Prop is medium', () => {
-    const priceLockup = doMount({
-      size: 'medium',
-      signDirection: 'left',
-      price: '25',
-      rateText: '/month',
-      topText: 'buy',
-      bottomText: 'great',
+  describe('rateText prop', () => {
+    it('has a string', () => {
+      const wrapper = doMount({ rateText: 'test rate' })
+      expect(wrapper).toMatchSnapshot()
     })
-    expect(priceLockup).toMatchSnapshot()
+    it('is undefined', () => {
+      const wrapper = doMount({ rateText: undefined })
+      expect(wrapper).toMatchSnapshot()
+    })
   })
 
-  it('dollarSign size is H1, dollarValue will be DisplayH1, rateText is large, topText is large, bottomText is absent, when size Prop is large', () => {
-    const priceLockup = doMount({
-      size: 'large',
-      signDirection: 'left',
-      price: '25',
-      rateText: '/month',
-      topText: 'buy',
-      bottomText: 'great',
+  describe('price prop', () => {
+    it('wil render component with a price', () => {
+      const wrapper = doMount({ price: '25' })
+      expect(wrapper).toMatchSnapshot()
     })
-    expect(priceLockup).toMatchSnapshot()
+  })
+
+  describe('Hairline Component', () => {
+    it('only render with bottomText="test" and rateText="/rate" and size="medium"', () => {
+      const priceLockup = doMount({ bottomText: 'test', rateText: '/rate', size: 'medium' })
+      expect(priceLockup).toMatchSnapshot()
+    })
+    it('will not render when bottomText="" and rateText="" and size is not medium', () => {
+      const priceLockup = doMount({ bottomText: '', rateText: '', size: 'small' })
+      expect(priceLockup).toMatchSnapshot()
+    })
+  })
+
+  describe('RateText Component', () => {
+    it('only render with rateText="/month', () => {
+      const priceLockup = doMount({ rateText: '/month' })
+      expect(priceLockup).toMatchSnapshot()
+    })
+    it('will render and component will be medium-sized, when size="small"', () => {
+      const priceLockup = doMount({ rateText: '/month', size: 'small' })
+      expect(priceLockup).toMatchSnapshot()
+    })
+    it('will render and component will be large-sized, when size="large"', () => {
+      const priceLockup = doMount({ rateText: '/month', size: 'large' })
+      expect(priceLockup).toMatchSnapshot()
+    })
+  })
+
+  describe('BottomText Component', () => {
+    it('will render only on size="medium" and bottomText="text"', () => {
+      const priceLockup = doMount({ size: 'medium', bottomText: 'text' })
+      expect(priceLockup).toMatchSnapshot()
+    })
+    it('will not render on size="small" and bottomText=""', () => {
+      const priceLockup = doMount({ size: 'small', bottomText: '' })
+      expect(priceLockup).toMatchSnapshot()
+    })
+    it('will not render on size="large" and bottomText=""', () => {
+      const priceLockup = doMount({ size: 'large', bottomText: '' })
+      expect(priceLockup).toMatchSnapshot()
+    })
   })
 })
